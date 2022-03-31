@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Sign-Up {% endblock %}
+
+{% block content %}
+    <h1>Register Here</h1>
+    <form method="POST">
+        {{ upform.hidden_tag() }}
+        <div class="form-group">
+            <fieldset>
+                {{ upform.username.label }}
+                {{ upform.username(class='form-control', placeholder='Username') }}
+            </fieldset>
+
+            <fieldset>
+                {{ upform.email.label }}
+                {{ upform.email(class='form-control', placeholder='Email') }}
+            </fieldset>
+
+            <fieldset>
+                {{ upform.password.label }}
+                {{ upform.password(class='form-control', placeholder='Password') }}
+            </fieldset>
+            
+            <fieldset>
+                {{ upform.confirm_password.label }}
+                {{ upform.confirm_password(class='form-control', placeholder='Confirm Password') }}
+            </fieldset>
+        </div>
+        {{ upform.submit(class='btn btn-outline-success') }}
+    </form>  
+{% endblock %}
