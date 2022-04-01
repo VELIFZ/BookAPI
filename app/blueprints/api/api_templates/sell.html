@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %} Sell {% endblock %}
+
+{% block content %}
+    <h1>Upload your book to sell.</h1>
+    <form method="POST">
+        {{ sellform.hidden_tag() }}
+        <div class="form-group">
+            <fieldset>
+                {{ sellform.title.label }}
+                {{ sellform.title(class='form-control') }}
+            </fieldset>
+
+            <fieldset>
+                {{ sellform.author.label }}
+                {{ sellform.author(class='form-control') }}
+            </fieldset>
+
+            <fieldset>
+                {{ sellform.price.label }}
+                {{ sellform.price(class='form-control') }}
+            </fieldset>
+            
+            <fieldset>
+                {{ sellform.description.label }}
+                {{ sellform.description(class='form-control') }}
+            </fieldset>
+
+            <fieldset>
+                {{ sellform.condition.label }}
+                {{ sellform.condition(class='form-control', placeholder='Used, Brand New...') }}
+            </fieldset>
+
+            <fieldset>
+                {{ sellform.image.label }}
+                {{ sellform.image(class='form-control') }}
+            </fieldset>
+
+            <fieldset>
+                {{ sellform.publisher.label }}
+                {{ sellform.publisher(class='form-control') }}
+            </fieldset>
+
+            <fieldset>
+                {{ sellform.publish_year.label }}
+                {{ sellform.publish_year(class='form-control') }}
+            </fieldset>
+
+            <fieldset>
+                {{ sellform.categories.label }}
+                {{ sellform.categories(class='form-control') }}
+            </fieldset>
+        </div>
+        {{ sellform.submit(class='btn btn-outline-success') }}
+    </form>  
+{% endblock %}

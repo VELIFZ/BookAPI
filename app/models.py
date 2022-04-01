@@ -7,6 +7,7 @@ db = SQLAlchemy()
 from datetime import datetime, timezone
 from werkzeug.security import generate_password_hash
 from uuid import uuid4 #generating id 
+from secrets import token_hex
 
 # import and  create instanse of login manager
 from flask_login import LoginManager, UserMixin #usermix'ini unutma
@@ -26,6 +27,7 @@ class User(db.Model, UserMixin): #defining database columns, bildigimiz User tab
     first_name = db.Column(db.String(50))
     last_name = db.Column(db.String(50))
     password = db.Column(db.String(250), nullable=False)
+    api_token = db.Column(db.String(35))
     date_created = db.Column(db.DateTime, default=datetime.now(timezone.utc))
 
     # This init method accepts input from user register form and transform that the way we can store to db
@@ -36,5 +38,83 @@ class User(db.Model, UserMixin): #defining database columns, bildigimiz User tab
         self.last_name = last_name
         self.password = generate_password_hash(password) #once parantez icinceki salt and hash sonra diger self.password hits the database
         self.id = str(uuid4())
+
+    def generate_token(self):
+        self.api_toke = token_hex(16)
+        
+##
+# New DB model for Book API
+class Book(db.Model):
+    id = db.Column(db.String(50), primary_key=True)
+    user_id = db.Column(db.String(50), db.ForeignKey('user.id')) # foreign key
+    title = db.Column(db.String(100), nullable=False)
+    author = db.Column(db.String(50), nullable=False)
+    condition = db.Column(db.String(50), default=True, nullable=False)
+    description = db.Column(db.String(300))
+    price = db.Column(db.Float(2), nullable=False)
+    image = db.Column(db.String(200))
+    publisher = db.Column(db.String(50))
+    publish_year = db.Column(db.String(50))
+    categories = db.Column(db.String(50))
+    date_posted = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+
+    # when a user submits a POST request to create a new animal, they'll be sending us a python dictionary, we'll then use that to make our object
+    def __init__(self, dict):
+        self.id = str(uuid4())
+        self.user_id = dict.get('user_id')
+        self.title = dict['title'].title()
+        self.author = dict['author'].title()
+        self.condition = dict['condition']
+        self.description = dict.get('description')
+        self.image = dict.get('image')
+        self.price = dict['price']
+        self.publisher = dict.get('publisher').title()
+        self.publish_year = dict.get('publish_year')
+        self.categories = dict.get('categories')
+        self.date_posted = dict.get('date_posted')
+
+    # write a function to translate this object to a dictionary
+    # role here is take self and return a dictionary containing K:V pairs for each attribute
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'title': self.title,
+            'author': self.author,
+            'condition': self.condition,
+            'description': self.description,
+            'image': self.image,
+            'price': self.price,
+            'publisher': self.publisher,
+            'publish_year': self.publish_year,
+            'categories': self.categories,
+            'date_posted': self.date_posted,
+        }
+
+    def from_dict(self, dict):
+        """
+        works for the update route - accepts the dictionary provided by the request and updates the book with any present keys
+        """
+        if dict.get('title'):
+            self.title = dict['title'].title()
+        if dict.get('author'):
+            self.author = dict['author'].title()
+        if dict.get('condition'):
+            self.condition = dict['condition']
+        if dict.get('description'):
+            self.description = dict['description']
+        if dict.get('image'):
+            self.image = dict['image']
+        if dict.get('price'):
+            self.price = dict['price']
+        if dict.get('publisher').title():
+            self.publisher = dict['publisher']
+        if dict.get('publish_year'):
+            self.publish_year = dict['publish_year']
+        if dict.get('categories'):
+            self.categories = dict['categories']
+        if dict.get('date_posted'):
+            self.date_posted = dict['date_posted']
         
         
+

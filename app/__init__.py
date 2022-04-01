@@ -3,7 +3,7 @@ from config import Config
 
 # import blueprints
 from .blueprints.auth.routes import auth
-#from .blueprints.api.routes import api
+from .blueprints.api.routes import api
 
 # imports for database stuff + login manager
 from .models import db, login
@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 app.register_blueprint(auth)
-#app.register_blueprint(api)
+app.register_blueprint(api)
 
 # set up our ORM and Migrate connections
 db.init_app(app)

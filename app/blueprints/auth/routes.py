@@ -11,7 +11,7 @@ from flask_login import login_user, current_user, login_required, logout_user
 
 auth = Blueprint('auth', __name__, template_folder='auth_templates', url_prefix = '/auth')
 
-@auth.route('/', methods=['GET', 'POST'])
+@auth.route('/signin', methods=['GET', 'POST'])
 def signin():
     inform = SignInForm()
     if request.method == 'POST':
@@ -43,7 +43,7 @@ def signup():
                 db.session.commit()
             except:
                 flash(f'That username or email is taken. Please try a different one.', category='danger')
-                return redirect(url_for('auth.register'))
+                return redirect(url_for('auth.signup'))
             login_user(newuser)
             # successful registration - redirect user to homepage
             flash(f'Successfully registered! Welcome, {upform.first_name.data}!', category='success')

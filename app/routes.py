@@ -9,7 +9,7 @@ import requests as r
 def home():
     return render_template('index.html')
 
-@app.route('/x', methods = ['GET', 'POST'])
+@app.route('/search', methods = ['GET', 'POST'])
 def functionName():
     form = ClassName()
     if request.method == "POST":
