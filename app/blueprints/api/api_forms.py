@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField, DecimalField, FileField
+from wtforms import StringField, SubmitField, BooleanField, DecimalField
 from wtforms.validators import DataRequired
+from flask_wtf.file import FileAllowed, FileField
 
 # With this form, user's can add books they want to sell. Then it will be in the DB and API 
 
@@ -9,8 +10,8 @@ class SellForm(FlaskForm):
     author = StringField('Author', validators=[DataRequired()])
     condition = StringField('Condition', validators=[DataRequired()])
     description = StringField('Description')
-    price = DecimalField()
-    image = FileField()
+    price = DecimalField('Price')
+    image = FileField('Image') #, validators=[FileAllowed('jpg', 'png', 'gif', 'jpeg')]
     publisher = StringField('Publisher')
     publish_year = StringField('Publish Year')
     categories = StringField('Category')
