@@ -7,7 +7,6 @@
 <meta name="Description" content="Enter your description here"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="../../static/css/main.css">
 
 <title> {% block title %} {% endblock %}</title>
@@ -15,10 +14,13 @@
 <body class= "d-flex flex-column min-vh-100">
      {% include 'partials/nav.html' %}
 
-      <div class="cotainer-fluid mt-2">
-        {% include 'partials/message.html' %}
-        {% block content %}
-        {% endblock %}
+     <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-6">
+              {% block content %}
+              {% endblock %}
+            </div>  
+        </div>
       </div>
       
       <div class="cotainer-fluid mt-5">

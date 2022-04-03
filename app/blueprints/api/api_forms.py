@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, BooleanField, DecimalField
+from wtforms import StringField, SubmitField, FloatField, IntegerField
 from wtforms.validators import DataRequired
 from flask_wtf.file import FileAllowed, FileField
 
@@ -9,8 +9,9 @@ class SellForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     author = StringField('Author', validators=[DataRequired()])
     condition = StringField('Condition', validators=[DataRequired()])
+    stock = IntegerField('How Many?', validators=[DataRequired()])
     description = StringField('Description')
-    price = DecimalField('Price')
+    price = FloatField('Price')
     image = FileField('Image') #, validators=[FileAllowed('jpg', 'png', 'gif', 'jpeg')]
     publisher = StringField('Publisher')
     publish_year = StringField('Publish Year')

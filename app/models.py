@@ -29,6 +29,7 @@ class User(db.Model, UserMixin): #defining database columns, bildigimiz User tab
     password = db.Column(db.String(250), nullable=False)
     api_token = db.Column(db.String(35))
     date_created = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+    
 
     # This init method accepts input from user register form and transform that the way we can store to db
     def __init__(self,username, email, password, first_name='', last_name=''): 
@@ -47,6 +48,7 @@ class User(db.Model, UserMixin): #defining database columns, bildigimiz User tab
 class Book(db.Model):
     id = db.Column(db.String(50), primary_key=True)
     user_id = db.Column(db.String(50), db.ForeignKey('user.id')) # foreign key
+    seller = db.relationship('User', backref=db.backref('sellers'))
     title = db.Column(db.String(100), nullable=False)
     author = db.Column(db.String(50), nullable=False)
     condition = db.Column(db.String(50), default=True, nullable=False)
@@ -55,8 +57,8 @@ class Book(db.Model):
     image = db.Column(db.String(200))
     publisher = db.Column(db.String(50))
     publish_year = db.Column(db.String(50))
-    categories = db.Column(db.String(50)) # make this genre and list
-    #inventory = db.Column(db)
+    categories = db.Column(db.String(50)) 
+    stock = db.Column(db.Float(2), nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.now(timezone.utc))
 
     # when a user submits a POST request to create a new animal, they'll be sending us a python dictionary, we'll then use that to make our object
@@ -73,6 +75,7 @@ class Book(db.Model):
         self.publish_year = dict.get('publish_year')
         self.categories = dict.get('categories')
         self.date_posted = dict.get('date_posted')
+        self.stock = dict['stock']
 
     # write a function to translate this object to a dictionary
     # role here is take self and return a dictionary containing K:V pairs for each attribute
@@ -90,6 +93,7 @@ class Book(db.Model):
             'publish_year': self.publish_year,
             'categories': self.categories,
             'date_posted': self.date_posted,
+            'stock': self.stock
         }
 
     def from_dict(self, dict):
@@ -116,6 +120,8 @@ class Book(db.Model):
             self.categories = dict['categories']
         if dict.get('date_posted'):
             self.date_posted = dict['date_posted']
+        if dict.get('stock'):
+            self.stock = dict['stock']
         
         
 

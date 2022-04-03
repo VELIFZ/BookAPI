@@ -27,8 +27,7 @@ def search():
                     categories = item['volumeInfo']['categories'][0]
                 except:
                     print('')
-                return render_template('search.html', form=form, items=items, title=title, authors= authors, published_date=published_date, description=description, publisher=publisher, categories=categories, image=image)
-            
+                return render_template('search.html', form=form, title=title, authors=authors, published_date=published_date, description=description, publisher=publisher, categories=categories, image=image)
         else:
             return redirect(url_for('search'))
     return render_template('search.html', form=form)

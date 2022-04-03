@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'components/layout.html' %}
 
 {% block title %} Sign-Up {% endblock %}
 
 {% block content %}
-    <h1>Register Here</h1>
+    <h1 class="text-center mb-3">Register Here</h1>
     <form method="POST">
         {{ upform.hidden_tag() }}
         <div class="form-group">
@@ -27,6 +27,9 @@
                 {{ upform.confirm_password(class='form-control', placeholder='Confirm Password') }}
             </fieldset>
         </div>
-        {{ upform.submit(class='btn btn-outline-success') }}
-    </form>  
+        <div class="mt-3">
+            {{ upform.submit(class='btn btn-outline-success') }}
+        </div>
+    </form>
+    {% include 'partials/message.html' %}  
 {% endblock %}

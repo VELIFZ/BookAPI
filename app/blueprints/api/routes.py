@@ -1,7 +1,6 @@
 # initial blueprint setup
 from flask import Blueprint, jsonify, request, redirect, url_for, flash, render_template
 from app.blueprints.api.api_forms import SellForm
-from app.models import Book, db
 from flask_login import login_required
 
 api = Blueprint('api', __name__, template_folder='api_templates', url_prefix = '/api') 
@@ -29,7 +28,7 @@ def sell():
         else:
             # bad form info - tell them to try again
             flash('Please fill out required fields.', category='danger')
-            return redirect(url_for('auth.sell'))
+            return redirect(url_for('api.sell'))
     return render_template('sell.html', sellform=sellform)
 
 # route for getting all books
@@ -114,16 +113,16 @@ def removebook(id):
     db.session.commit()
     return jsonify({'Removed book': book.to_dict()}), 200
 
-@api.route('/inventoryupdate', methods=['POST'])
-def updateInventory():
+@api.route('/stockupdate', methods=['POST'])
+def updatestock():
     data = request.get_json()
     for id in data['books']:
         print('id' + id)
         print('quantity' + data['books'][id]['quantity'])
         b = Book.query.get(id)
-        b.inventory = b.inventory - data['books'][id]['quantity']
-        if b.inventory < 0:
+        b.stock = b.stock - data['books'][id]['quantity']
+        if b.stock < 0:
             return jsonify({}), 500
         print(b.to_diict)
     db.session.commit()
-    return jsonify({'Inventory': 'update complete'}), 200
+    return jsonify({'stock': 'update complete'}), 200

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'components/layout.html' %}
 
 {% block title %} Sell {% endblock %}
 
@@ -15,6 +15,11 @@
             <fieldset>
                 {{ sellform.author.label }}
                 {{ sellform.author(class='form-control') }}
+            </fieldset>
+
+            <fieldset>
+                {{ sellform.stock.label }}
+                {{ sellform.stock(class='form-control') }}
             </fieldset>
 
             <fieldset>
