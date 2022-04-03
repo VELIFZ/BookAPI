@@ -55,7 +55,8 @@ class Book(db.Model):
     image = db.Column(db.String(200))
     publisher = db.Column(db.String(50))
     publish_year = db.Column(db.String(50))
-    categories = db.Column(db.String(50))
+    categories = db.Column(db.String(50)) # make this genre and list
+    #inventory = db.Column(db)
     date_posted = db.Column(db.DateTime, default=datetime.now(timezone.utc))
 
     # when a user submits a POST request to create a new animal, they'll be sending us a python dictionary, we'll then use that to make our object

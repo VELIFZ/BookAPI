@@ -2,6 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, BooleanField, DecimalField, FileField
 from wtforms.validators import DataRequired
 
+# With this form, user's can add books they want to sell. Then it will be in the DB and API 
+
 class SellForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     author = StringField('Author', validators=[DataRequired()])

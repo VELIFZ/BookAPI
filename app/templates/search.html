@@ -1,0 +1,42 @@
+{% extends 'components/layout.html'%}
+
+{% block title %} Search {% endblock %}
+
+{% block content %}
+
+<div class="row mt-5 mx-auto">
+  <div class="col-2  mx-auto">
+    <small class="form-text text-muted"> Which book.</small>
+        <form class="form-inline" method="POST">
+            {{ form.hidden_tag() }}
+          <div class="form-row align-items-center">
+            <div class="form-group">
+              {{ form.name(class="mr-3 form-control", placeholder="Author or Book Title") }}
+            </div>
+            <div class="col-auto mt-3">
+              {{ form.submit(class="btn btn-warning") }}
+            </div>
+          </div>
+        </form>
+  </div>
+</div>
+{% if (title or authors) %} 
+  <div class="col-4 mt-5 pr-5">
+    {# % for i in range() % #}
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src='{{ image }}'>
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><span class='float-right'>{{ title.upper() }}</span></li>
+      <li class="list-group-item"><span class='float-right'>{{ authors.upper()}}</span></li>
+      <li class="list-group-item"><span class='float-right'>{{ publisher.upper()}}</span></li>
+      <li class="list-group-item"><span class='float-right'>{{ publish_date }}</span></li>
+      <li class="list-group-item"><span class='float-right'>{{ description }}</span></li>
+      <li class="list-group-item"><span class='float-right'>{{ categories }}</span></li>
+    </ul>
+  </div>
+  </div>
+  {% endif %}
+{% endblock %}

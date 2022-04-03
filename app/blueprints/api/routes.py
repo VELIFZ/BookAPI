@@ -113,3 +113,17 @@ def removebook(id):
     db.session.delete(book)
     db.session.commit()
     return jsonify({'Removed book': book.to_dict()}), 200
+
+@api.route('/inventoryupdate', methods=['POST'])
+def updateInventory():
+    data = request.get_json()
+    for id in data['books']:
+        print('id' + id)
+        print('quantity' + data['books'][id]['quantity'])
+        b = Book.query.get(id)
+        b.inventory = b.inventory - data['books'][id]['quantity']
+        if b.inventory < 0:
+            return jsonify({}), 500
+        print(b.to_diict)
+    db.session.commit()
+    return jsonify({'Inventory': 'update complete'}), 200
