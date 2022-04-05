@@ -4,6 +4,7 @@ from config import Config
 # import blueprints
 from .blueprints.auth.routes import auth
 from .blueprints.api.routes import api
+from .blueprints.forum.routes import forum
 #from .blueprints.shop.routes import shop
 
 # imports for database stuff + login manager
@@ -16,6 +17,7 @@ app.config.from_object(Config)
 
 app.register_blueprint(auth)
 app.register_blueprint(api)
+app.register_blueprint(forum)
 #app.register_blueprint(shop)
 
 # set up our ORM and Migrate connections

@@ -18,9 +18,7 @@ login = LoginManager()
 def load_user(user_id):
     return User.query.get(user_id)
 
-class User(db.Model, UserMixin): #defining database columns, bildigimiz User table'i
-    # lay out our columns just like we would in a SQL create table query
-    # column_name = db.Column(db.DataType(<options>), constraints)
+class User(db.Model, UserMixin): 
     id = db.Column(db.String(50), primary_key=True)
     username = db.Column(db.String(15), nullable=False, unique=True) # usrname column name
     email = db.Column(db.String(50), nullable=False, unique=True)
@@ -28,6 +26,9 @@ class User(db.Model, UserMixin): #defining database columns, bildigimiz User tab
     last_name = db.Column(db.String(50))
     password = db.Column(db.String(250), nullable=False)
     api_token = db.Column(db.String(35))
+    posts = db.relationship('Post', backref='author')
+    seller = db.relationship('Book', backref=db.backref('sellers'))
+    # profile_pic = db.Column(db.String(20), nullable=False, default='default.jpg')
     date_created = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     
 
@@ -42,13 +43,22 @@ class User(db.Model, UserMixin): #defining database columns, bildigimiz User tab
 
     def generate_token(self):
         self.api_toke = token_hex(16)
+
+
+# create table for forum posts
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(20))
+    body = db.Column(db.String(300))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.String, db.ForeignKey('user.id')) # nullable=False
+    
         
 ##
 # New DB model for Book API
 class Book(db.Model):
     id = db.Column(db.String(50), primary_key=True)
-    user_id = db.Column(db.String(50), db.ForeignKey('user.id')) # foreign key
-    seller = db.relationship('User', backref=db.backref('sellers'))
+    user_id = db.Column(db.String, db.ForeignKey('user.id')) 
     title = db.Column(db.String(100), nullable=False)
     author = db.Column(db.String(50), nullable=False)
     condition = db.Column(db.String(50), default=True, nullable=False)

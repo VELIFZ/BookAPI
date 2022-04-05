@@ -1,7 +1,14 @@
-html{
-    overflow-x: hidden;
-    }
+#scroll {
+    overflow: scroll ;
 
+}
+
+#feed {
+    background: rgb(29,45,55);
+    background: linear-gradient(90deg, rgba(29,45,55,1) 0%, rgba(7,7,9,1) 50%, rgba(29,45,55,1) 100%);
+    border: solid;
+    border-radius: 2mm;
+}
 .pagination-page-info {
     padding: .6em;
     padding-left: 0;

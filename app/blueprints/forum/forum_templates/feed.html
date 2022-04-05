@@ -1,0 +1,92 @@
+{% extends 'components/layout.html' %}
+
+{% block content %}
+<div class="container mb-5" id="feed">
+    <!-- section for new post-->
+    <div class="row mt-5 me-5 ms-5">
+        <div class="col-6">
+            <h3 style="color: antiquewhite;">Catch up on the latest topics and participate in discussions!</h3>
+        </div>
+        <div class="col-6">
+            <div class="container bg-light">
+                <div class=" row">
+                    <form class="form-inline" method="POST">
+                        {{ form.hidden_tag() }}
+                        <fieldset class="form-group">
+                            <legend class="border-bottom mb-4">NEW POST</legend>
+                            <div class="form-group">
+                                {{ form.title.label(class="form-control-label") }}
+                                {{ form.title(class="form-control form-control-lg") }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.new_post.label(class="form-control-label") }}
+                                {{ form.new_post(class="form-control form-control-lg") }}
+                            </div>
+                        </fieldset>
+                        <div class="form-group mt-2">
+                            {{ form.submit(class="btn btn-outline-info") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- section ends-->
+
+    <!-- 2 cloumns for topics and posts-->
+    <div class="row mt-5">
+        <!-- first col for posts-->
+            <div class="col-2">
+                <p class="text-capitalize" style="color: antiquewhite;">Most recent topics that people are talking about.</p>
+                {% for topic in posts.items %}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h4><a class="article-title" href="#">{{ topic.title.title() }}</a></h4>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        <!-- first col ends -->
+            
+        <!-- second col for posts-->
+            <div class="col-10">
+                <div class="row mb-4 justify-content-center">
+                    <h3 class="text-capitalize text-center m-0" style="color: antiquewhite;">Recent posts</h3>
+                </div> 
+                <div class="row justify-content-center">
+                    {% for post in posts.items %}
+                    <div class="col-4 mb-3">
+                        <div class="card mb-3 h-100">
+                            <div class="card-header">
+                                <h5 class="m-0">{{ post.author.username }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <blockquote class="blockquote mb-0">
+                                    <h4><a class="article-title" href="#">{{ post.title.title() }}</a></h4>
+                                    <p>{{ post.body }}</p>
+                                    <footer class="blockquote-footer"><cite title="Source Title">{{ post.timestamp }}</cite></footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="d-flex justify-content-center">
+                {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                {% if page_num %}
+                    {% if posts.page == page_num %}
+                    <a class="btn btn-info mb-4" href="{{ url_for('forum.feed', page=page_num) }}">{{ page_num }}</a>
+                    {% else %}
+                    <a class="btn btn-outline-info mb-4" href="{{ url_for('forum.feed', page=page_num) }}">{{ page_num }}</a>
+                    {% endif %}
+                {% else %}
+                   <h1 class="text-info">...</h1> 
+                {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        <!-- second col ends -->
+    </div>
+   <!-- 2 columns end-->
+</div>
+{% endblock %}

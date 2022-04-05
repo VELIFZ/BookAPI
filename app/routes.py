@@ -1,8 +1,9 @@
 from app import app
 
-from flask import redirect, render_template, request, url_for, redirect, flash
+from flask import redirect, render_template, request, url_for, redirect, flash, session
 from .forms import Search
 from flask_paginate import Pagination, get_page_parameter
+
 
 import requests as r
 
@@ -30,3 +31,4 @@ def search():
         else:
             return redirect(url_for('search'))
     return render_template('search.html', form=form )
+
