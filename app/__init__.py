@@ -1,5 +1,6 @@
 from flask import Flask
 from config import Config
+from flask_cors import CORS
 
 # import blueprints
 from .blueprints.auth.routes import auth
@@ -12,6 +13,7 @@ from .models import db, login
 from flask_migrate import Migrate
 
 app = Flask(__name__)
+CORS(app, origins=["*"])
 
 app.config.from_object(Config)
 
