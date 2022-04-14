@@ -21,3 +21,15 @@
     font-size: 150%;
 }
 
+.hero {
+    position: relative;
+    height: 100vh;
+}
+
+.hero-content {
+    position: relative;
+}
+
+#signin {  
+    background: linear-gradient(90deg, rgb(50, 70, 82) 0%, rgb(33, 56, 67) 50%, rgb(39, 62, 76) 100%);
+}

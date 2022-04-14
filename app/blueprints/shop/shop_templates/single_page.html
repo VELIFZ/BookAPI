@@ -1,0 +1,54 @@
+{% extends 'components/layout.html'%}
+
+{% block title %} Shop {% endblock %}
+
+{% block content %}
+
+<div class="container my-auto">
+    <div class="row mb-5">
+        <div class="col-2"></div>
+        <div class="col-8 mb-5">
+            
+            <section class="hero">
+                <div class="row mt-5">
+                    <div class="col-3  my-3" style="width: 18rem">
+                        {% if single_book.image %}
+                        <img src={{single_book.image}} class="container" alt={{single_book.title}} />
+                        {% else %}
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Placeholder_book.svg/1200px-Placeholder_book.svg.png" class="container" alt={{single_book.title}} />
+                        {% endif %}
+                        <div class="container mt-3">
+                            <a href="#" class="">Add to Wishlist</a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-6 my-3">
+                        <h5 class="title">{{single_book.title}}</h5>
+                        <h6>by {{single_book.author}}</h6>
+                        <p class="text-danger">${{single_book.price}}</p>
+                        <button href="" type="button" class="hero-button" >Add to Cart</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <hr>
+                    <h2>Overview</h2>
+                    <p>{{single_book.categories}}</p>
+                    <p>{{single_book.description}}</p>
+                    <p><i>Product Details</i></p>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Publisher:</p>
+                            <p>Publication date:</p>
+                            <p>Condition:</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{single_book.publisher}}</p>
+                            <p>{{single_book.publish_year}}</p>
+                            <p>{{single_book.condition}}</p>
+                        </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

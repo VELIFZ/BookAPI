@@ -4,18 +4,31 @@
 
 {% block content %}
 <div class="container mt-2 mb-5">
-    <h1>Shop</h1>
-    {% for i in book %}
-    <div class="container mx-3 my-3" style="width: 18rem">
-        <img src={{i.image}} class="img-thumbnail" alt={{i.title}} />
-        <div class="container mt-1 h-25">
-            <h5 class="title">{{i.title}}</h5>
-            <h6>by {{i.author}}</h6>
-            <p class="text-danger">${{i.price}}</p>
-            <button type="button" class="btn btn-primary" > Add to Cart </button>
-        </div>
+    <div class="row">
+      <h1>Shop</h1>
     </div>
+    <div class="row">
+    {% for i in all_books %}
+       {% if i.inventory !=0 %}
+        <div class="col-md-3 mx-3 my-3" style="width: 18rem">
+            {% if i.image %}
+            <!-- imageye tikladiginda book details cikiyor-->
+            <a href="{{url_for('shop.single_page',id=i.id)}}" class="float-left btn brn-sm btm-primary"> <img src={{i.image}} class="container" alt={{i.title}} /></a>
+            {% else %}
+            <a href="{{url_for('shop.single_page',id=i.id)}}" class="float-left btn brn-sm btm-primary">
+               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Placeholder_book.svg/1200px-Placeholder_book.svg.png" class="container" alt={{i.title}} />
+            </a>
+            {% endif %}
+            <div class="container mt-1">
+                <h5 class="title">{{i.title}}</h5>
+                <h6>by {{i.author}}</h6>
+                <p class="text-danger">${{i.price}}</p>
+                 <a href="#" class="float-left btn btn-sm btn-primary"> Add to cart</a>
+            </div>
+        </div>
+        {% endif %}
     {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
