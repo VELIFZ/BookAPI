@@ -6,7 +6,7 @@ from flask_cors import CORS
 from .blueprints.auth.routes import auth
 from .blueprints.api.routes import api
 from .blueprints.forum.routes import forum
-#from .blueprints.shop.routes import shop
+from .blueprints.shop.routes import shop
 
 # imports for database stuff + login manager
 from .models import db, login
@@ -20,7 +20,7 @@ app.config.from_object(Config)
 app.register_blueprint(auth)
 app.register_blueprint(api)
 app.register_blueprint(forum)
-#app.register_blueprint(shop)
+app.register_blueprint(shop)
 
 # set up our ORM and Migrate connections
 db.init_app(app)

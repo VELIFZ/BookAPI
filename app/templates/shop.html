@@ -1,0 +1,21 @@
+{% extends 'components/layout.html'%}
+
+{% block title %} Shop {% endblock %}
+
+{% block content %}
+<div class="container mt-2 mb-5">
+    <h1>Shop</h1>
+    {% for i in book %}
+    <div class="container mx-3 my-3" style="width: 18rem">
+        <img src={{i.image}} class="img-thumbnail" alt={{i.title}} />
+        <div class="container mt-1 h-25">
+            <h5 class="title">{{i.title}}</h5>
+            <h6>by {{i.author}}</h6>
+            <p class="text-danger">${{i.price}}</p>
+            <button type="button" class="btn btn-primary" > Add to Cart </button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

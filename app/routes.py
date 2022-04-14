@@ -8,8 +8,16 @@ from flask_paginate import Pagination, get_page_parameter
 import requests as r
 
 
-@app.route('/')
+@app.route('/', methods = ['GET', 'POST'])
 def home():
+    res = r.get('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=c8oaOdaN23MxlZSAstdGA29PJtWu3oFA').json()
+    if res:
+        try:
+            best_s = res["results"]["books"]
+            first_i = best_s[0]['book_image']
+            return render_template('index.html', best_s=best_s, first_i=first_i)    
+        except:
+            return ''
     return render_template('index.html')
 
 # making the google book api call - I need items for now which its a list contains dictionaries, every index is containes more dictionaries about single book
@@ -32,3 +40,13 @@ def search():
             return redirect(url_for('search'))
     return render_template('search.html', form=form )
 
+@app.route('/shop')
+def shop():
+    res = r.get('https://the-book-cafe.herokuapp.com/api/books').json()
+    if res:
+        try:
+            book = res["Books"]
+            return render_template('shop.html', book=book)    
+        except:
+            return ''
+    return render_template('shop.html')
