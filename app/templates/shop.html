@@ -12,7 +12,12 @@
             <h5 class="title">{{i.title}}</h5>
             <h6>by {{i.author}}</h6>
             <p class="text-danger">${{i.price}}</p>
-            <button type="button" class="btn btn-primary" > Add to Cart </button>
+            <form action="{{url_for('shop.addcart')}}" method="post">
+                <input type="hidden" name="book_id" value="{{i.id}}">
+                <button type="submit" class="btn btn-sm btn-warning">Add to Cart</button>
+                <label for="quantity">Quantity: </label>
+                <input type="number" name="quantity" value="1" min="1" max="{{i.stock}}">
+            </form>
         </div>
     </div>
     {% endfor %}

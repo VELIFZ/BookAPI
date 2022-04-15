@@ -31,5 +31,15 @@
 }
 
 #signin {  
-    background: linear-gradient(90deg, rgb(50, 70, 82) 0%, rgb(33, 56, 67) 50%, rgb(39, 62, 76) 100%);
+    background: linear-gradient(90deg, rgb(241, 241, 225) 0%, rgb(233, 230, 212) 50%, rgb(250, 240, 186) 100%);
 }
+
+
+
+.carousel-cell:before {
+    display: block;
+    text-align: center;
+    content: counter(gallery-cell);
+    font-size: 80px;
+    color: white;
+  }

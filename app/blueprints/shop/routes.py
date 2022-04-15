@@ -2,6 +2,7 @@
 from flask import Blueprint, render_template, request, url_for
 import requests as r
 from app.models import db, User, Book
+from flask_login import login_required
 
 shop = Blueprint('shop', __name__, template_folder='shop_templates', url_prefix = '/shop') 
 
@@ -28,6 +29,9 @@ def single_page(id):
     single_book = Book.query.get(id)
     return render_template('single_page.html', single_book=single_book)
 
-@shop.route('/cart')
+@shop.route('/addcart', methods=['POST'])
+@login_required
 def addcart():
-    return render_template('cart.html')
+    book_id = request.form.get('book_id')
+    quantity = request.form.get('quantity')
+    return render_template('buy.html', book_id=book_id, quantity=quantity)

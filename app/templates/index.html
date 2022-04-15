@@ -3,33 +3,23 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
+<!-- bestsellers start-->
+<div class="row">
+  <div class="carousel" data-flickity='{ "groupCells": true, "wrapAround": true, "autoPlay": true, "imagesLoaded":true}'>
+    {% for i in best_s %}
+    <div class="carousel-cell">
+      <a href="{{i.amazon_product_url}}" target="_blank">
+        <img src={{i.book_image}} class="img-thumbnail d-block" height="10px">
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+ <!-- bestsellers end-->
 
+  <div class="row">
     <h3>Login to start! </h3>
     <a href="{{ url_for('auth.signin') }}">Let's Start</a>
-
-    <!-- bestsellers start-->
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src={{first_i}} class="d-block w-50" >
-        </div>
-        {% for i in best_s %}
-        {% if loop.index != 1 %}
-        <div class="carousel-item">
-          <img src={{i.book_image}} class="d-block w-50" >
-        </div>
-        {% endif %}
-        {% endfor %}
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    <!-- bestsellers end-->
-
+  </div>
+   
 {% endblock %}
